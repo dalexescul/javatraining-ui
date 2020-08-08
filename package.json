@@ -38,7 +38,7 @@
     "ngx-custom-validators": "8.0.0",
     "ngx-perfect-scrollbar": "9.0.0",
     "node-sass": "4.13.1",
-    "prismjs": "1.19.0",
+    "prismjs": "1.21.0",
     "resize-observer-polyfill": "1.5.1",
     "rxjs": "6.5.4",
     "screenfull": "5.0.2",
