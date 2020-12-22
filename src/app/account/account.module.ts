@@ -3,13 +3,20 @@ import {CommonModule} from '@angular/common';
 import {AccountListComponent} from './account-list/account-list.component';
 import {AccountManageComponent} from './account-manage/account-manage.component';
 import {AccountRoutingModule} from './account-routing.module';
+import {SharedModule} from '../shared/shared.module';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 
 @NgModule({
   declarations: [AccountListComponent, AccountManageComponent],
+  exports: [
+    AccountListComponent
+  ],
   imports: [
     CommonModule,
-    AccountRoutingModule
+    SharedModule,
+    NgxDatatableModule
   ]
 })
-export class AccountModule { }
+export class AccountModule {
+}

@@ -1,108 +1,73 @@
-<!--Extended Table starts-->
-<div class="row text-left">
-  <div class="col-12">
-    <div class="content-header">Customers</div>
-  </div>
-</div>
-<section id="extended">
-  <div class="row text-left">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Action Buttons</h4>
-        </div>
-        <div class="card-content">
-          <div class="card-body">
-            <table class="table table-responsive-md text-center">
-              <thead>
-              <tr>
-                <th>#</th>
-                <th></th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>1</td>
-                <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item1">
-                    <label class="custom-control-label col-form-label" for="item1"></label>
-                  </div>
-                </td>
-                <td>John</td>
-                <td>Carter</td>
-                <td>Male</td>
-                <td>johncarter@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
-                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item2">
-                    <label class="custom-control-label col-form-label" for="item2"></label>
-                  </div>
-                </td>
-                <td>Peter</td>
-                <td>Parker</td>
-                <td>Male</td>
-                <td>peterparker@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
-                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item3">
-                    <label class="custom-control-label col-form-label" for="item3"></label>
-                  </div>
-                </td>
-                <td>John</td>
-                <td>Rambo</td>
-                <td>Male</td>
-                <td>johnrambo@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
-                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
-                  </a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<ngx-datatable [contentEditable]="true" [rows]="accounts" class="bootstrap" [loadingIndicator]="loadingIndicator"
+               [columns]="columns" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+               [reorderable]="reorderable">
+  <ngx-datatable-column name="Balance">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <span
+              title="Double click to edit"
+              (dblclick)="editing[rowIndex + '-balance'] = true"
+              *ngIf="!editing[rowIndex + '-balance']"
+            >
+              {{ value }}
+            </span>
+      <input
+        class="form-control"
+        autofocus
+        (blur)="updateValue($event, 'balance', rowIndex)"
+        *ngIf="editing[rowIndex + '-balance']"
+        type="number"
+        [value]="value"
+      />
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Currency">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+            <span
+              title="Double click to edit"
+              (dblclick)="editing[rowIndex + '-currency'] = true"
+              *ngIf="!editing[rowIndex + '-currency']"
+            >
+              {{ value }}
+            </span>
+      <select
+        class="form-control"
+        *ngIf="editing[rowIndex + '-currency']"
+        (blur)="editing[rowIndex + '-currency'] = false"
+        (change)="updateValue($event, 'currency', rowIndex)"
+        [value]="value"
+      >
+        <option value="EUR" selected="selected">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="USD">USD</option>
+        <option value="RON">RON</option>
+      </select>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column name="Restricted">
+    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+         <span
+           title="Double click to edit"
+           (dblclick)="editing[rowIndex + '-restricted'] = true"
+           *ngIf="!editing[rowIndex + '-restricted']"
+         >
+              {{ value }}
+            </span>
+      <select
+        class="form-control"
+        *ngIf="editing[rowIndex + '-restricted']"
+        (blur)="editing[rowIndex + '-restricted'] = false"
+        (change)="updateValue($event, 'restricted', rowIndex)"
+        [value]="value"
+      >
+        <option value="false" selected="selected">false</option>
+        <option value="true">true</option>
+      </select>
+    </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-footer>
+    <ng-template ngx-datatable-footer-template>
+      <button type="button" class="btn btn-success col-12" (click)="addRow()"><span style="color: white">Add new row</span></button>
+    </ng-template>
+  </ngx-datatable-footer>
+</ngx-datatable>
+

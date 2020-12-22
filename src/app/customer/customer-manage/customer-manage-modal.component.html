@@ -1,0 +1,62 @@
+<form (submit)="onSubmit()" *ngIf="manageData">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ context.charAt(0).toUpperCase() + context.slice(1) }} Customer</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngIf="loading">
+      <!--      implement loading component-->
+    </ng-container>
+
+    <ng-container *ngIf="!loading">
+      <p *ngIf="context === 'add'">In order to add a new Customer, please fill out the data in the form below.</p>
+      <p *ngIf="context === 'update'">In order to edit the Customer, please fill out the data in the form below.</p>
+
+      <!--      implement error component-->
+
+      <div class="form-group">
+        <label for="customer_fullName">Full Name<span class="text-danger">*</span>:</label>
+        <input type="text" name="customer_fullName" id="customer_fullName" class="form-control"
+               [(ngModel)]="manageData.fullName" placeholder="Full Name">
+      </div>
+      <div class="form-group">
+        <label for="customer_address">Address<span class="text-danger">*</span>:</label>
+        <input type="text" name="customer_address" id="customer_address" class="form-control"
+               [(ngModel)]="manageData.address" placeholder="Address">
+      </div>
+      <div class="form-group">
+        <label for="customer_dateOfBirth">Date Of Birth<span class="text-danger">*</span>:</label>
+        <input type="date" name="customer_dateOfBirth" id="customer_dateOfBirth" class="form-control"
+               [(ngModel)]="manageData.dateOfBirth">
+      </div>
+      <div class="form-group">
+        <label for="customer_email">Email<span class="text-danger">*</span>:</label>
+        <input type="text" name="customer_email" id="customer_email" class="form-control"
+               [(ngModel)]="manageData.email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="customer_mobileNo">Mobile Number<span class="text-danger">*</span>:</label>
+        <input type="text" name="customer_mobileNo" id="customer_mobileNo" class="form-control"
+               [(ngModel)]="manageData.mobileNo" placeholder="Mobile Number">
+      </div>
+      <div class="form-group">
+        <label for="customer_residency">Residency<span class="text-danger">*</span>:</label>
+        <input type="text" name="customer_residency" id="customer_residency" class="form-control"
+               [(ngModel)]="manageData.residency" placeholder="Residency">
+      </div>
+      <h4>Accounts</h4>
+      <hr/>
+      <div class="form-group">
+        <app-account-list *ngIf="manageData.accounts" [accounts]="manageData.accounts"></app-account-list>
+      </div>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" [disabled]="submitButtonDisabled" [ngClass]="['btn', getColorDependingOnContext()]">
+      <span style="color: white"><i [ngClass]="getIconDependingOnContext()"></i> {{submitButtonText}}</span>
+    </button>
+    <button type="button" class="btn btn-danger btn-raised" (click)="reloadPage()">Close</button>
+  </div>
+</form>

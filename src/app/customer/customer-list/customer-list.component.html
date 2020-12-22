@@ -1,105 +1,69 @@
-<!--Extended Table starts-->
 <div class="row text-left">
   <div class="col-12">
     <div class="content-header">Customers</div>
   </div>
 </div>
-<section id="extended">
+<section id="extended" *ngIf="data">
   <div class="row text-left">
     <div class="col-sm-12">
       <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Action Buttons</h4>
-        </div>
         <div class="card-content">
           <div class="card-body">
+            <a class="info p-0 text-success pull-right" data-original-title="" title="" (click)="openCustomerCreateModal()">
+              <i class="ft-plus-circle font-medium-5 mr-2"></i>
+            </a>
             <table class="table table-responsive-md text-center">
               <thead>
               <tr>
-                <th>#</th>
-                <th></th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Gender</th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Date of Birth</th>
+                <th>Date of Death</th>
                 <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Residency</th>
                 <th>Actions</th>
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td>1</td>
+              <tr *ngFor="let customer of data.content">
+                <td>{{customer.fullName}}</td>
+                <td>{{customer.address}}</td>
+                <td>{{customer.dateOfBirth}}</td>
+                <td>{{customer.dateOfDeath ? customer.dateOfDeath : 'N/A'}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.mobileNo}}</td>
+                <td>{{customer.residency}}</td>
                 <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item1">
-                    <label class="custom-control-label col-form-label" for="item1"></label>
-                  </div>
-                </td>
-                <td>John</td>
-                <td>Carter</td>
-                <td>Male</td>
-                <td>johncarter@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
+                  <a class="success p-0 text-warning" data-original-title="" title="" (click)="openCustomerUpdateModal(customer)">
                     <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item2">
-                    <label class="custom-control-label col-form-label" for="item2"></label>
-                  </div>
-                </td>
-                <td>Peter</td>
-                <td>Parker</td>
-                <td>Male</td>
-                <td>peterparker@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
-                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>
-                  <div class="custom-control custom-checkbox m-0">
-                    <input type="checkbox" class="custom-control-input" id="item3">
-                    <label class="custom-control-label col-form-label" for="item3"></label>
-                  </div>
-                </td>
-                <td>John</td>
-                <td>Rambo</td>
-                <td>Male</td>
-                <td>johnrambo@mail.com</td>
-                <td>
-                  <a class="info p-0" data-original-title="" title="">
-                    <i class="ft-user font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="success p-0" data-original-title="" title="">
-                    <i class="ft-edit-2 font-medium-3 mr-2"></i>
-                  </a>
-                  <a class="danger p-0" data-original-title="" title="">
-                    <i class="ft-x font-medium-3 mr-2"></i>
                   </a>
                 </td>
               </tr>
               </tbody>
             </table>
+            <div class="row">
+              <div class="col-10">
+                <ngb-pagination *ngIf="totalPages > 1"
+                                [collectionSize]="totalElements"
+                                [(page)]="page"
+                                [maxSize]="6"
+                                [pageSize]="itemsPerPage"
+                                [rotate]="true"
+                                [boundaryLinks]="true"
+                                (pageChange)="onPageChange(page)">
+                </ngb-pagination>
+              </div>
+              <div class="col-2">
+                <select name="itemsPerPage" id="itemsPerPage" (change)="onItemsPerPageChange($event)"
+                        [(ngModel)]="itemsPerPage" class="form-control">
+                  <option *ngFor="let itemsPerPageOption of itemsPerPageOptions"
+                          value="{{itemsPerPageOption.value}}">
+                    {{itemsPerPageOption.label}}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>

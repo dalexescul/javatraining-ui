@@ -8,9 +8,9 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { 
-    PerfectScrollbarModule, 
-    PERFECT_SCROLLBAR_CONFIG, 
+import {
+    PerfectScrollbarModule,
+    PERFECT_SCROLLBAR_CONFIG,
     PerfectScrollbarConfigInterface
   } from 'ngx-perfect-scrollbar';
 
@@ -25,7 +25,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
     wheelPropagation: false
   };
-  
+
   export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
   }
@@ -60,4 +60,3 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     bootstrap: [AppComponent]
   })
   export class AppModule {}
-  

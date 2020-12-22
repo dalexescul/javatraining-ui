@@ -3,13 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AccountListComponent} from './account-list/account-list.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: AccountListComponent,
-    data: {
-      title: 'Account Page'
-    },
-  }
+
 ];
 
 @NgModule({

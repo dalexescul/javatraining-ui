@@ -5,7 +5,7 @@ import {environment} from '../../../environments/environment';
 
 @Injectable()
 export abstract class ApiService {
-  protected constructor(private http: HttpClient) {
+  public constructor(private http: HttpClient) {
   }
 
   protected getBasePath(): string {
@@ -21,12 +21,12 @@ export abstract class ApiService {
     return `${basePath}${resourcePath()}${path}`;
   }
 
-  protected get(url: string): Observable<any> {
+  protected get(url: string): Observable<Response> {
     url = this.getUrl(url);
 
-    return new Observable((observer: Observer<any>) => {
+    return new Observable((observer: Observer<Response>) => {
       this.http.get(url).subscribe(
-        (response) => {
+        (response: Response) => {
           observer.next(response);
           observer.complete();
         },
@@ -43,12 +43,12 @@ export abstract class ApiService {
     });
   }
 
-  protected post(url: string, body: any): Observable<Response> {
+  protected post(url: string, body: object): Observable<Response> {
     url = this.getUrl(url);
 
-    return new Observable((observer: Observer<any>) => {
+    return new Observable((observer: Observer<Response>) => {
       this.http.post(url, body).subscribe(
-        (response) => {
+        (response: Response) => {
           observer.next(response);
           observer.complete();
         },
@@ -64,12 +64,12 @@ export abstract class ApiService {
     });
   }
 
-  protected put(url: string, body: any): Observable<Response> {
+  protected put(url: string, body: object): Observable<Response> {
     url = this.getUrl(url);
 
-    return new Observable((observer: Observer<any>) => {
+    return new Observable((observer: Observer<Response>) => {
       this.http.put(url, body).subscribe(
-        (response) => {
+        (response: Response) => {
           observer.next(response);
           observer.complete();
         },
